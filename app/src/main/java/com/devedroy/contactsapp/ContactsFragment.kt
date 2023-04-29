@@ -6,74 +6,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.squareup.moshi.KotlinJsonAdapterFactory
-import com.squareup.moshi.Moshi
+import com.devedroy.contactsapp.databinding.FragmentContactsBinding
 import okio.IOException
+import org.json.JSONArray
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ContactsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ContactsFragment : Fragment() {
+    private lateinit var contactsBinding: FragmentContactsBinding
     val TAG = "ContactsFragment"
-
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-        val jsonAdapter = moshi.adapter(Contact::class.java)
-
+        contactsBinding = FragmentContactsBinding.inflate(layoutInflater, container, false)
         try {
-            val inputStream = context?.assets?.open("contacts.json")
-            val json = inputStream?.bufferedReader().use { it?.readText() ?: "MyName" }
-            val contact = jsonAdapter.fromJson(json)
-            Log.d(TAG, "${contact?.fName}")
-            Log.d(TAG, "${contact?.lName}")
+            val inputStream = context?.assets?.open("contacts_v2.json")
+            val jsonString = inputStream?.bufferedReader().use { it?.readText() ?: "MyName" }
+            val jsonArray = JSONArray(jsonString)
+            for (i in 0 until jsonArray.length()) {
+                val jsonObject = jsonArray.getJSONObject(i)
+                val fName = jsonObject.getString("fName")
+                val lName = jsonObject.getString("lName")
+                Log.d(TAG, "$fName")
+                Log.d(TAG, "$lName")
+            }
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contacts, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Contacts.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ContactsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        return contactsBinding.root
     }
 }
