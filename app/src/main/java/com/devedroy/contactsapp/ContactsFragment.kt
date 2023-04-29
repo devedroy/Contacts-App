@@ -1,10 +1,14 @@
 package com.devedroy.contactsapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.moshi.KotlinJsonAdapterFactory
+import com.squareup.moshi.Moshi
+import okio.IOException
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,6 +21,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ContactsFragment : Fragment() {
+    val TAG = "ContactsFragment"
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -33,6 +39,20 @@ class ContactsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+        val jsonAdapter = moshi.adapter(Contact::class.java)
+
+        try {
+            val inputStream = context?.assets?.open("contacts.json")
+            val json = inputStream?.bufferedReader().use { it?.readText() ?: "MyName" }
+            val contact = jsonAdapter.fromJson(json)
+            Log.d(TAG, "${contact?.fName}")
+            Log.d(TAG, "${contact?.lName}")
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_contacts, container, false)
     }
