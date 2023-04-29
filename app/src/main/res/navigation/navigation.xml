@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/contactsFragment"
-        android:name="com.devedroy.contactsapp.ContactsFragment"
+        android:name="com.devedroy.contactsapp.contact.ContactsFragment"
         android:label="ContactsFragment" />
     <fragment
         android:id="@+id/messagesFragment"
