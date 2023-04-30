@@ -6,7 +6,6 @@ plugins {
 android {
     namespace 'com.devedroy.contactsapp'
     compileSdk 33
-
     defaultConfig {
         applicationId "com.devedroy.contactsapp"
         minSdk 24
@@ -53,4 +52,10 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     implementation "com.twilio.sdk:twilio:9.5.0"
+
+    def room_version = "2.5.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
 }

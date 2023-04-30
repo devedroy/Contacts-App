@@ -1,5 +1,7 @@
 package com.devedroy.contactsapp
 
+import org.json.JSONObject
+
 interface SendMessageListener {
-    fun gotoSendMessageActivity()
+    fun gotoSendMessageActivity(message: JSONObject)
 }

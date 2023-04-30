@@ -39,7 +39,7 @@ class ContactsAdapter(
                 tvPhone.text = jsonObject.getString("phoneNumber")
                 val btnMessage = dialog.findViewById<Button>(R.id.btnMessage)
                 btnMessage.setOnClickListener {
-                    listener.gotoSendMessageActivity()
+                    listener.gotoSendMessageActivity(jsonObject)
                     dialog.dismiss()
                 }
                 dialog.show()

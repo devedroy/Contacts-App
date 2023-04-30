@@ -10,7 +10,7 @@
         android:label="ContactsFragment" />
     <fragment
         android:id="@+id/messagesFragment"
-        android:name="com.devedroy.contactsapp.MessagesFragment"
+        android:name="com.devedroy.contactsapp.message.MessagesFragment"
         android:label="MessagesFragment" />
     <action
         android:id="@+id/action_contact"
