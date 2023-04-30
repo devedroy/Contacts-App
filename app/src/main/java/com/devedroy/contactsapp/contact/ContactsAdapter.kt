@@ -5,17 +5,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.devedroy.contactsapp.R
+import com.devedroy.contactsapp.SendMessageListener
 import com.devedroy.contactsapp.databinding.ItemContactBinding
 import org.json.JSONArray
 import org.json.JSONObject
 
 class ContactsAdapter(
     private val context: Context,
-    private val jsonArray: JSONArray
+    private val jsonArray: JSONArray,
+    private val listener: SendMessageListener
 ) :
     RecyclerView.Adapter<ContactsAdapter.ContactViewHolder>() {
 
@@ -31,9 +33,14 @@ class ContactsAdapter(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
+                val tvName = dialog.findViewById<TextView>(R.id.tvName)
+                tvName.text = name
+                val tvPhone = dialog.findViewById<TextView>(R.id.tvPhone)
+                tvPhone.text = jsonObject.getString("phoneNumber")
                 val btnMessage = dialog.findViewById<Button>(R.id.btnMessage)
                 btnMessage.setOnClickListener {
-                    Toast.makeText(context, "Sending Message", Toast.LENGTH_SHORT).show()
+                    listener.gotoSendMessageActivity()
+                    dialog.dismiss()
                 }
                 dialog.show()
             }

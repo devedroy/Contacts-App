@@ -8,14 +8,16 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/item_margin"
         android:textAlignment="center"
         android:textSize="@dimen/dialog_text"
-        tools:text="Roy Devpreyo" />
+        tools:text="Devpreyo Roy" />
 
     <TextView
+        android:id="@+id/tvPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
