@@ -9,6 +9,4 @@ data class MessageModel(
     val otp: Int,
     val time: String,
     @PrimaryKey(autoGenerate = true) val id: Int? = null
-) {
-    constructor(name: String, otp: Int, time: String) : this(name, otp, time, null)
-}
+)
