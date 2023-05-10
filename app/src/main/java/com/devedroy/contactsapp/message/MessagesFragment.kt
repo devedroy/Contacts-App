@@ -44,7 +44,7 @@ class MessagesFragment : Fragment() {
         }
     }
 
-    private suspend fun getMessages(): List<MessageModel> = withContext(Dispatchers.Main) {
+    private suspend fun getMessages(): List<MessageModel> = withContext(Dispatchers.IO) {
         App.messageDatabase.messageDao().getMessages()
     }
 
